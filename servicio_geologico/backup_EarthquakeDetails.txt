@@ -1,0 +1,159 @@
+import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {loadDetailEvents} from '../../redux/actionsCreators';
+import axios from 'axios';
+import HeaderDetail from '../Templates/Details/HeaderDetail';
+import FooterDetail from '../Templates/Details/FooterDetail';
+import MainDetail from '../Templates/Details/MainDetail';
+import convert from '../Atoms/product_assign';
+import Lists from '../Molecules/Lista';
+
+class EarthquakeDetail extends Component {
+    state = {
+        card : [],
+        change:false
+    }
+    info = {
+        
+    };
+    componentWillMount(){
+        const url = this.props.id ? 
+        `https://s3.amazonaws.com/sgc.sites.gov.co/events/${this.props.id}/detail.json` : 
+        'https://s3.amazonaws.com/sgc.sites.gov.co/events/SGC2020hddmbp/detail.json'
+    /// La consulta si funciona
+
+    
+     //---------------------
+     //revisa esta parte del codigo 
+
+     axios.get(url).then((resp)=>{
+        // si hay data el se actualiza el state lo que actualiza el render
+        let data = resp.data;
+        this.setState({
+            card:data
+        })
+        this.init_data();
+     }).catch(err=>{
+         this.setState({
+             data:[]
+         })
+     })
+    }
+    // Aqui se renderiza todos los productos
+
+    render_desc = (info) =>{
+        /**
+         * El cambio es temporal no hay instrucciónpara la funcionalidad
+         * de los otros products
+         */
+        this.props.history.push('/paginasismo/origen');
+        window.scrollTo(0,0);
+        this.setState({
+            change:true
+        })
+    }
+
+    init_data(){
+        const {translate} = convert;
+        console.log(this.state.card)
+        this.state.card.forEach((element) => {
+            let properties = element["properties"];
+            console.log(properties);
+            let tmp_array = [];
+
+            let table_props = {
+                updated: properties.updated,
+                place: properties.place,
+                mag:properties.mag,
+                fases:properties["products"].origin,
+                status: properties.status,
+                rms: properties.rms,
+                gap: properties.gap,
+                agency: properties.agency,
+                close_towns:properties.closerTowns,
+                cdi:properties.cdi,
+                felt:properties.felt, // sentido
+                mmi:properties.mmi
+            }
+            properties["products"].resumen = 'resumen';
+
+
+            for (let params in table_props){
+                tmp_array.push(translate(params, table_props[params]));
+            }
+            this.props.loadDetailEvents({
+                origins:properties["products"],
+                map:properties.products["static-map"],
+                table:tmp_array
+            });
+            this.info ={
+                origins:properties["products"]
+            }
+        })
+    }
+    render(){
+        // si la propiedad info["full"] es false falta inicializar la data
+        // con el init_data();
+        if (this.state.card.length > 0 && !this.info["origins"]){
+            this.init_data();
+        }
+        return (
+            <div className="earthquake-detail">
+
+                <div className="header-detail">
+                    <HeaderDetail/>
+                </div>
+
+                <div className="main-detail">
+
+                    <div>
+                        <section className="detail_contenedor">
+                            
+
+                            <div className="detail_sideMenu">
+                                {
+                                    this.info["origins"] ? (
+                                        <Lists data={this.info.origins} render_desc={this.render_desc}/>
+                                    ) : (
+                                        <h3>Cargando...</h3>
+                                    )
+                                }
+                            </div>
+                            <div className="detail_main">
+                            { 
+                                this.state.card.length > 0 ? (
+                                    <MainDetail/>
+                                ) : (
+                                    <div> <h3>Cargando...</h3> </div>
+                                )
+                            }
+                            </div>
+                        </section>
+                    </div>
+
+                </div>
+
+                <div className="footer-detail">
+                    <FooterDetail/>
+                </div>
+                
+            </div>
+          );
+    }
+}
+
+const mapStateToProps = state =>(
+	{
+		items: state
+	} 
+)
+const mapDispatchToProps = {
+    loadDetailEvents
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EarthquakeDetail);
+
+
+/**
+ * Desea realizar el examen 2 en casa el dia 30 de abril de modo que el este examen valga el 15% y el otro 15% del corte 2 son las notas promediadas del cuestionario y el taller presentado de series de Fourier?
+ */

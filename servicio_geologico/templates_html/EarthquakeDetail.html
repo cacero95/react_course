@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/event.css">
+    <style>
+        li {
+            border-bottom: 2px solid #ccc;
+            padding: 10px 40px;
+        }
+        h3,h4 {
+            color: green;
+        }
+        small {
+            font-weight: 200;
+            opacity: 0.5;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        ul{
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <section style="height: 100px;"></section>
+    <section>
+        <div style="display: flex; justify-content: center;">
+            <div style="margin-right: 20px;">
+                <ul style="list-style: none; border: 2px solid #ccc;">
+                  <li style="background: green; color: #ffffff;">Evento Sismico</li>
+                  <li>Evento Sismico</li>
+                  <li>Evento Sismico</li>
+                  <li>Evento Sismico</li>
+                  <li>Evento Sismico</li>
+                  <li>Evento Sismico</li>
+                  <li>Evento Sismico</li>
+                  <li>Evento Sismico</li>
+                  <li>Evento Sismico</li>  
+                </ul>
+            </div>
+            <div>
+                <h3>Resumen de Evento</h3>
+                <h4>M. 3.1 Los Santos, Santander - Colombia</h4>
+                <div style="margin: 10px 0;">
+                    <p> <small>{identificador}</small> </p>
+                    <img src="./assets/primera_tarea.png" width="100%" alt="">
+                    <hr>
+                </div>
+                <div style="display: grid; grid-template-columns: 50% 60%; width: 600px; grid-gap: 20px;">
+                    
+                        <img style="display: inline;" width="100%" src="./assets/primera_tarea.png" alt="">
+
+                        <ul>
+                            <li>
+                                <div style="text-align: center;">
+                                    
+                                    <span>
+                                      <strong>Tiempo de origen</strong>
+                                    </span>
+                                    <span style="border:1px solid #ccc">{data}</span>
+                                </div>
+                                
+                            </li>
+                        </ul>
+                    
+                    
+                </div>
+                
+            </div>
+        </div>
+
+    </section>
+    <footer>
+        <div class="footer">
+            <p>
+              Dirección Diagonal 53 No.34-53 - Bogotá D.C Colombia. - Linea de
+              atención Red Sismológica Naconal de Colombia - RSNC (571)2000200
+              Ext.2046
+            </p>
+          </div>
+
+    </footer>
+    
+</body>
+</html>

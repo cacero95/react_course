@@ -1,0 +1,143 @@
+EQContentManager.jsx
+
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import "../../Styles/eqdetail.css";
+import EQOverview from "./EQOverview";
+import EQOrigen from "./EQOrigen";
+
+class EQContenManager extends Component {
+  manageContent = (content) => {
+    switch (content) {
+      case "resumen":
+        return <EQOverview event={this.props.event}></EQOverview>;
+      case "origen":
+        return <EQOrigen></EQOrigen>;
+      case "caso3":
+        return <div>por definir</div>;
+      case "caso4":
+        return <div>por definir 2</div>;
+      default:
+        return <div>por defecto</div>;
+    }
+  };
+  render() {
+    return this.manageContent(this.props.product);
+  }
+}
+const mapStateToProps = (state) => ({
+  event: state.detailEvent,
+});
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EQContenManager);
+
+-----------------------------------------------------------------
+EQMenu.jsx
+
+import React from "react";
+import { Link } from "react-router-dom";
+
+const EQMenu = (props) => {
+  return (
+    <>
+      <Link to={`/detallesismo/${props.id}/resumen`}>Resumen</Link>
+      <Link to={`/detallesismo/${props.id}/origen`}>Origen</Link>
+    </>
+  );
+};
+
+export default EQMenu;
+
+-----------------------------------------------------------------
+EQOrigen.jsx
+
+
+import React from "react";
+
+const EQOrigen = (props) => <h1>Componente  Origen</h1>;
+export default EQOrigen;
+
+-----------------------------------------------------------------
+EQOverview.jsx
+
+import React from "react";
+import Grid from "@material-ui/core/Grid";
+
+const EQOverview = (props) => {
+  if (props.event.length > 0) {
+    const event = props.event[0];
+    return (
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={6}>
+          <img src={event.properties.products.staticmap}></img>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <div>
+            <div>
+              <div>{event.properties.place}</div>
+            </div>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Tiempo de origen:</td>
+                  <td>
+                    {event.properties.localTime} ({event.properties.utcTime}{" "}
+                    UTC)
+                  </td>
+                </tr>
+                <tr>
+                  <td>Ubicación:</td>
+                  <td>
+                    {event.properties.geometry.coordinates[0]}° ,{" "}
+                    {event.properties.geometry.coordinates[1]}°{" "}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Profundidad:</td>
+                  <td>{event.properties.geometry.coordinates[2]} km</td>
+                </tr>
+                <tr>
+                  <td>Magnitud:</td>
+                  <td>{event.properties.mag}</td>
+                </tr>
+                <tr>
+                  <td>Fases:</td>
+                  <td>{event.properties.nts}</td>
+                </tr>
+                <tr>
+                  <td>Estatus:</td>
+                  <td>{event.properties.status}</td>
+                </tr>
+                <tr>
+                  <td>RMS:</td>
+                  <td>{event.properties.rms}</td>
+                </tr>
+                <tr>
+                  <td>Gap:</td>
+                  <td>{event.properties.gap}°</td>
+                </tr>
+                <tr>
+                  <td>Agencia:</td>
+                  <td>{event.properties.agency}</td>
+                </tr>
+                <tr>
+                  <td>Municipios Cercanos:</td>
+                  <td>{event.properties.closerTowns}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={12}>
+          <h1>Panel productos </h1>
+        </Grid>
+      </Grid>
+    );
+  } else {
+    return <h1>No hay datos</h1>;
+  }
+};
+
+export default EQOverview;
+-----------------------------------------------------------------

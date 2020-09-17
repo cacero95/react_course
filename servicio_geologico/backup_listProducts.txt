@@ -1,0 +1,79 @@
+import React from 'react';
+import convert from '../Atoms/product_assign';
+import menu_icon from '../../assets/icons/reorder_black.svg'
+
+const Lists = (info) =>{
+    // data is required
+    const {assing} = convert;
+    const {data, render_desc} = info;
+    let list_items = [];
+    let items = [];
+    let hidden_menu = null;
+    if (data){
+      // ordena todo el arreglo de items de tal manera la lista de productos
+      // tenga los valores necesarios
+      list_items = assing(data);
+    }
+    let count = 0;
+
+    const handleToggle = (value,key) => () => {
+      // en render viene como props render_desc() que esta EarthquakeDetails
+      items = items.length === 0 ? items = document.getElementsByTagName('li') : items = items;
+      for (let selector of items){
+        selector.className = selector.innerHTML === key ? selector.className = 'detail_activated' : 'detail_noActivated' 
+      }
+      render_desc(value);
+    };
+    const list_activated = () => () =>{
+      items = items.length === 0 ? items = document.getElementsByTagName('li') : items = items;
+      hidden_menu = hidden_menu === null ? document.querySelector('#menu') : hidden_menu = hidden_menu;
+      
+      let show = hidden_menu["style"].clear === "" ? 'block' : 'none';
+      console.log(show)
+      hidden_menu["style"].clear = show === 'block' ? hidden_menu["style"].clear = "both" : hidden_menu["style"].clear = "";
+      console.log(hidden_menu["style"])
+      for (let li of items){
+        li.style.display = show;
+      }
+    }
+    let list = list_items.length ? (
+      list_items.map((element)=>{
+        let class_li = count <  1 ? 'detail_activated' : 'detail_noActivated';
+        count++;
+        return(
+          <li onClick={handleToggle(element,element.product)} id={`li${count}`} key={`li${count}`} className={class_li}><p>{element.product}</p></li>
+        )
+      })
+    ) : (
+      <div>
+        <li> No hay productos </li>
+      </div>
+    )
+
+
+  
+  return (
+    <ol id="detail_list animated fadeInDown" className="detail_list">
+      <div id="menu" onClick={list_activated()}>
+        <img width="30px" src={menu_icon}></img>
+      </div>
+      <section>{list}</section>
+    </ol>
+  );
+
+}
+export default Lists;
+
+<div className="detailcontainer">
+        
+        <div className="detailproductsmenu">
+          <EQMenu id={this.state["current"].id}></EQMenu>
+        </div>
+        <div className="detailcontentproduct">
+          <EQContentManager
+            product={this.state["current"].product}
+          ></EQContentManager>
+        </div>
+        <footer className="detailfooter">footer</footer>
+      </div>
+

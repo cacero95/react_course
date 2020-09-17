@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: #eeeeee;
+    color: #080;
+    font-family: 'Roboto', sans-serif;
+}
+.header p{
+    font-size: 50px;
+    text-align: center;
+    padding: 20px 0;
+}
+.contenedor {
+    width: 98%;
+    max-width: 1000px;
+    border: 1px solid #000000;
+    margin: auto;
+    font-size: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+.contenedor > div {
+    display: block;
+    padding: 20px;
+    color: #ffffff;
+    background: #2f89dc;
+    border-bottom: .5px solid #cccccc;
+    box-shadow: 2px 2px 2px #000000;
+}

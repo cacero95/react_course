@@ -1,0 +1,303 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Open Sans", sans-serif;
+  }
+  
+  .container {
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 60px auto 30px;
+    grid-template-areas:
+      "earthquakes-header"
+      "content"
+      "footer";
+    transition: all 0.3s ease;
+  }
+  
+  /*------------------- HEADER --------------- */
+  
+  .earthquakes-header {
+    grid-area: earthquakes-header;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+    background-color: #667f00;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: space-between;
+    grid-gap: 20px;
+    grid-template-areas: "sgc-log earthquakes-modes-view";
+  }
+  
+  .sgc-logo {
+    grid-area: sgc-log;
+    display: flex;
+    align-items: center;
+  }
+  
+  .sgc-logo > .logo > img {
+    border: none;
+    height: 60px;
+    width: 130px;
+    margin-left: 10px;
+  }
+  
+  .earthquakes-modes-view {
+    grid-area: earthquakes-modes-view;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+  }
+  
+  .earthquakes-header .earthquakes-modes-view ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  .earthquakes-header .earthquakes-modes-view ul li {
+    float: left;
+    display: flex;
+    cursor: pointer;
+  }
+  
+  .earthquakes-header .earthquakes-modes-view ul li + li {
+    margin-left: 0.5em;
+  }
+  .earthquakes-header .earthquakes-modes-view ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+  }
+  
+  .earthquakes-header .earthquakes-modes-view ul li .material-icons {
+    color: #fff;
+    font-size: 28px;
+    height: 28px;
+    user-select: none;
+    width: 28px;
+  }
+  
+  .earthquakes-header .earthquakes-modes-view ul li.selected > .material-icons {
+    color: #d0e159;
+  }
+  
+  /*------------------- HEADER --------------- */
+  .content {
+    grid-area: content;
+    overflow-y: auto;
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 350px auto;
+    grid-template-rows: auto;
+    grid-template-areas: "events-list map";
+    transition: all 0.3s ease;
+  }
+  
+  .events-list {
+    grid-area: events-list;
+    background: rgb(65, 61, 61);
+    overflow-y: auto;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  .map {
+    grid-area: map;
+    height: 100%;
+    background: rgb(129, 62, 3);
+  }
+  
+  .settings {
+    grid-area: settings;
+    background: rgb(65, 61, 61);
+    overflow-y: auto;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  /*--------------- Footer ---------------*/
+  
+  .footer {
+    grid-area: footer;
+    background: #636363;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+  }
+  
+  .footer p {
+    color: #ffffff;
+    font-size: 12px;
+  }
+  
+  /* -----Display configuration settings */
+  
+  @media screen and (max-device-width:2900px) {
+  .content>.map,.content>.events-list,.content>.settings{
+  display: none;
+  }
+  
+  .content.mode-list {
+    grid-template-columns: auto;
+    grid-template-areas: "events-list";
+  }
+  
+  .content.mode-list>.events-list {
+    display: block;
+  }
+  
+  .mode-list > .map,
+  .mode-list > .settings {
+    display: none;
+  }
+  
+  .content.mode-map {
+    grid-template-columns: auto;
+    grid-template-areas: "map";
+  }
+  
+  .content.mode-map>.map {
+    display: block;
+  }
+  
+  .mode-map > .events-list,
+  .mode-map > .settings {
+    display: none;
+  }
+  
+  .content.mode-settings {
+    grid-template-columns: auto;
+    grid-template-areas: "settings";
+  }
+  
+  .content.mode-settings>.settings {
+    display: block;
+  }
+  .mode-settings > .events-list,
+  .mode-settings > .map {
+    display: none;
+  }
+  
+  .content.mode-map.mode-list {
+    grid-template-columns: 25% auto;
+    grid-template-areas: "events-list map";
+  }
+  
+  .content.mode-map.mode-list > .events-list,
+  .content.mode-map.mode-list > .map {
+    display: block;
+  }
+  
+  .content.mode-settings.mode-list {
+    grid-template-columns: 50% 50%;
+    grid-template-areas: "events-list settings";
+  }
+  
+  .content.mode-settings.mode-list > .events-list,
+  .content.mode-settings.mode-list > .settings {
+    display: block;
+  }
+  
+  .content.mode-settings.mode-map {
+    grid-template-columns: auto 25%;
+    grid-template-areas: "map settings";
+  }
+  
+  .content.mode-settings.mode-map > .events-list {
+    display: none;
+  }
+  
+  .content.mode-settings.mode-map > .map,
+  .content.mode-settings.mode-map > .settings {
+    display: block;
+  }
+  
+  .content.mode-settings.mode-list.mode-map {
+    grid-template-columns: 25% auto 25%;
+    grid-template-areas: "events-list map settings";
+  }
+  
+  .content.mode-settings.mode-list.mode-map > .events-list,
+  .content.mode-settings.mode-list.mode-map > .map,
+  .content.mode-settings.mode-list.mode-map > .settings {
+    display: block;
+  }
+  }
+  /* -----Display configuration settings */
+  
+  /*--------------------Media Queries----------------------*/
+  @media screen and (max-device-width: 720px) {
+    
+  
+    .content > .map,.content > .settings,.content > .events-list {
+      display: none;
+    }
+  
+    .content.mode-list {
+      grid-template-areas: "event-list";
+    }
+  
+    .content.mode-list > .events-list {
+      display: block;
+    }
+   
+    .settings,
+    .map{
+      display: none;
+    }
+  
+    .content.mode-settings {
+      grid-template-areas: "settings";
+    }
+    
+    .content.mode-settings > .settings {
+      display: block;
+    }
+   
+    .content.mode-settings > .map,
+    .content.mode-settings > .events-list{
+      display: none;
+    }
+  
+    
+  
+    .content.mode-map {
+      grid-template-areas: "map";
+    }
+  
+    .content.mode-map > .map {
+      display: block;
+    }
+   
+    .content.mode-map > .settings,
+    .content.mode-map > .events-list{
+      display: none;
+    } 
+  
+    .footer {
+      grid-area: footer;
+      background: #636363;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .footer p {
+      color: #ffffff;
+      font-size: 8px;
+    }
+  }
+  
+  
